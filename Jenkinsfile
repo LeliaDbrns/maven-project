@@ -12,8 +12,16 @@ pipeline{
         }
         stage('Build') {
             steps {
-              bat 'mvn package'
+              bat 'mvn -B -DskipTests clean package'
             }
         }
+
+        stage('Build and Send Results to Sonar') {
+            steps {
+                withSonarQubeEnv(installationName: 'sonarqube')
+                { bat 'mvn clean package sonar:sonar -Dsonar.login=admin -Dsonar.password=Test'}
+            }
+        }
+
     }
 }
