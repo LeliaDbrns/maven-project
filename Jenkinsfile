@@ -2,6 +2,7 @@ pipeline{
     agent any
     tools {
         maven "localMaven"
+    }
     stages {
         stage('Test'){
             steps {
@@ -14,6 +15,5 @@ pipeline{
               bat 'mvn package'
             }
         }
-        
     }
 }
